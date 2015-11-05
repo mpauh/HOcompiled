@@ -1,0 +1,14 @@
+1)Copie los archivos de la subrutina de c a la carpeta con el programa principal de fortran
+cp c-sum.c c-sum.h ../04-c-from-f/
+2)Linkie y aparecieron los errores
+gfortran f-main.f90 c-sum.c
+3)Compile por separado para crear los objetos y analizar que estaba pasando
+gcc -c c-sum.c
+gfortran -c f-main.f90
+4)Con nm mire los descriptores y simbolos
+nm f-main.o
+nm c-sum.o
+Ahi aparecio una funcion sum_abs que no tenia _ en c-sum.c
+y no la podia linkear el programa principal
+5)Cambie en c-sum el nombre de la funcion y corregi variables de entrada y punteros para que sean compatibles entre si, porque fortran solo trabaja con punteros y habia que cambiarlo en la subrutina. Ademas habia que cambiar que la subrutina no tire el valor entero sino un nro void porque el entero lo tira fortran.
+6)Luego, al linkear y ejecutar dio resultado.

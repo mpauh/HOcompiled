@@ -1,0 +1,11 @@
+1) Me traigo el main de c del ejercicio anterior
+gcc -c c-main.c 
+g++ -c cpp-sum.cpp 
+g++ cpp-sum.o c-main.o -o c-main.e
+y aparece
+c-main.o: In function `main':
+c-main.c:(.text+0x86): undefined reference to `sum_abs_'
+collect2: error: ld returned 1 exit status
+2) Al mirar los objetos c++ no tenia el mismo simbolo de la funcion que c
+3) Lo que habia que hacer es por un lado incluir el cpp-sum.h en el main de c y luego cambiarlo con extern para que c++ lo compile con el nombre de la funcion de c y sumarle un ifdef para que lo entienda correctamente en c++ en el preprocesamiento y si esta en c evade esas lineas
+4) Ahora si al linkear funciono correctamente 

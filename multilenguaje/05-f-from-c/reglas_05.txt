@@ -1,0 +1,23 @@
+1) Compile la subrutina de fortran
+2) Al compilar el programa principal en c necesitaba incluir el c-sum.h con los prototipos de las funciones y se genero el objeto c-sum.o 
+3) Al compilar c-sum.c aparecen varios errores ademas de corregir el _ en la funcion sum_abs en c:
+c-main.c: In function ‘main’:
+c-main.c:16:38: warning: passing argument 2 of ‘sum_abs’ makes pointer from integer without a cast
+     printf("sum=%d\n", sum_abs(data, num));
+                                      ^
+In file included from c-main.c:3:0:
+c-sum.h:5:13: note: expected ‘int *’ but argument is of type ‘int’
+ extern void sum_abs(int *, int *, int *);
+             ^
+c-main.c:16:24: error: too few arguments to function ‘sum_abs’
+     printf("sum=%d\n", sum_abs(data, num));
+                        ^
+In file included from c-main.c:3:0:
+c-sum.h:5:13: note: declared here
+ extern void sum_abs(int *, int *, int *);
+4)Por un lado, en el programa principal, faltaba un argumento de la funcion principal y como num y el nuevo argumento estan definidos como int en c y fortran necesita punteros, habia que agregar & adelante a los argumentos num y asum para que de la posicion de memoria.
+Luego, compile gcc -c c-main.c y tb me faltaba sacar afuera del print sum_abs y luego imprimir el valor de salida de la cuenta que me tira fortran.
+5)Hecho todo eso compile nuevamente sin errores y linkie y todo bien!
+gcc f-sum.o c-main.o -o c-main.e
+        
+
